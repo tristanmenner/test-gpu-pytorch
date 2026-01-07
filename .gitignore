@@ -1,6 +1,9 @@
 # Dataset
 /data
 /results
+/output
+/test
+/train
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
