@@ -5,6 +5,12 @@
 	// CUDA-enabled base image for GPU testing
 	"image": "mcr.microsoft.com/devcontainers/python:3.11",
 	
+	"runArgs": [
+		"--gpus",
+		"all"
+	],
+
+
 	// Install 'uv' immediately after the container starts
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
@@ -14,11 +20,12 @@
 			"installCudnn": true,
 			"version": "12.8" // Or leave generic to match the host driver
 		  }
-	
 	},
 
-	"updateContentCommand": "pip install uv && uv venv --allow-existing && uv pip install -r pyproject.toml",
-	
+	//"updateContentCommand": "pip install uv && uv venv --allow-existing && uv pip install -r pyproject.toml",
+	"updateContentCommand": "pip install uv && uv venv --allow-existing && uv pip install --python .venv -e .",
+
+
 	"customizations": {
 		"vscode": {
 		"settings": {
@@ -27,8 +34,14 @@
 			"python.analysis.extraPaths": ["./.venv/lib/python3.11/site-packages"]
 		},
 		"extensions": [
+			// 1. The Core Python Logic
 			"ms-python.python",
-			"charliermarsh.ruff" // The fast linter that goes with uv
+			"ms-python.vscode-pylance",
+			"charliermarsh.ruff",
+			"tamasfe.even-better-toml",  // For pyproject.toml highlighting
+			"ms-toolsai.jupyter",
+			"ms-toolsai.jupyter-keymap",
+			"ms-toolsai.jupyter-renderers"
 		]
 		}
 	}

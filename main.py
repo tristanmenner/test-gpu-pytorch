@@ -1,5 +1,5 @@
 import torch
-
+import numpy as np
 
 def main() -> int:
     print(f"PyTorch version: {torch.__version__}")
