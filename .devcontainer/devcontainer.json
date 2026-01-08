@@ -1,0 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "test-gpu",
+	// CUDA-enabled base image for GPU testing
+	"image": "mcr.microsoft.com/devcontainers/python:3.11",
+	
+	// Install 'uv' immediately after the container starts
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers/features/git:1": {},
+
+		"ghcr.io/devcontainers/features/nvidia-cuda:1": {
+			"installCudnn": true,
+			"version": "12.8" // Or leave generic to match the host driver
+		  }
+	
+	},
+
+	"updateContentCommand": "pip install uv && uv venv --allow-existing && uv pip install -r pyproject.toml",
+	
+	"customizations": {
+		"vscode": {
+		"settings": {
+			// use the virtualenv created by uv
+			"python.defaultInterpreterPath": "./.venv/bin/python",
+			"python.analysis.extraPaths": ["./.venv/lib/python3.11/site-packages"]
+		},
+		"extensions": [
+			"ms-python.python",
+			"charliermarsh.ruff" // The fast linter that goes with uv
+		]
+		}
+	}
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

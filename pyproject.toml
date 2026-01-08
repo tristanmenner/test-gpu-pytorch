@@ -1,0 +1,6 @@
+[project]
+name = "test-gpu"
+version = "0.1.0"
+dependencies = [
+    "torch",
+]
